@@ -4816,6 +4816,7 @@ Error Mle::ProcessAlternatePhyCapabilityTlv(const Message &aMessage, Neighbor &a
         VerifyOrExit(header.GetLength() == sizeof(subTlv) - sizeof(ot::Tlv), error = kErrorParse);
         SuccessOrExit(error = aMessage.Read(offsetRange.GetOffset(), subTlv));
         subTlv.GetCapability(capability);
+        VerifyOrExit(AlternatePhy::IsValid(capability), error = kErrorParse);
         SuccessOrExit(error = newInfo.Upsert(capability));
 
         offsetRange.AdvanceOffset(entrySize);
